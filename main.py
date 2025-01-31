@@ -1,5 +1,4 @@
 """
-
 - fetch data
 - preprocess
 
@@ -19,7 +18,6 @@ import requests
 import json
 import pandas
 # import onnxruntime
-
 
 def retrieve():
     storage = {}
