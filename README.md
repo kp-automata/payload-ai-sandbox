@@ -33,7 +33,7 @@ VGG (Very Deep Convolutional Network for Large-Scale Image Recognition)
 - Proprietary Tools:ENVI/IDL, MATLAB, Mathematica, ArcMap
 
 #### Resources
-[Deep Learning in OpenCV](https://github.com/opencv/opencv/wiki/Deep-Learning-in-OpenCV)
-[VGG Onnx How To](https://github.com/onnx/models/blob/main/validated/vision/classification/vgg/train_vgg.ipynb)
-[ImageNet Demo](https://navigu.net/#imagenet)
+- [Deep Learning in OpenCV](https://github.com/opencv/opencv/wiki/Deep-Learning-in-OpenCV)
+- [VGG Onnx How To](https://github.com/onnx/models/blob/main/validated/vision/classification/vgg/train_vgg.ipynb)
+- [ImageNet Demo](https://navigu.net/#imagenet)
 
