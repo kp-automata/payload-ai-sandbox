@@ -8,9 +8,9 @@ Sandbox R&amp;D space for payload AI image processing task
 ### AI
 
 #### Potential Models
-ViT (Vitsion Transformer)
-VGG (Very Deep Convolutional Network for Large-Scale Image Recognition)
-(Check [onnx](https://github.com/onnx/models))
+- ViT (Vitsion Transformer)
+- VGG (Very Deep Convolutional Network for Large-Scale Image Recognition)
+- (Check [onnx](https://github.com/onnx/models))
 
 #### Potential Data
 - [Copernicus API](https://documentation.dataspace.copernicus.eu/Data.html)
