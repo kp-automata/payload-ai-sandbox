@@ -1,0 +1,307 @@
+{
+    "title": "EONET Web Service Layers",
+    "description": "List of web service layers in the EONET system",
+    "link": "https://eonet.gsfc.nasa.gov/api/v3/layers/wildfires",
+    "categories": [
+        {
+            "id": 8,
+            "title": "Wildfires",
+            "layers": [
+                {
+                    "name": "AIRS_CO_Total_Column_Day",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "AIRS_CO_Total_Column_Night",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "AIRS_Dust_Score_Ocean_Day",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "AIRS_Dust_Score_Ocean_Night",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "FORMAT": "image/png",
+                            "TILEMATRIXSET": "2km"
+                        }
+                    ]
+                },
+                {
+                    "name": "AIRS_Precipitation_Day",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "AIRS_Precipitation_Night",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Aqua_Aerosol",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Aqua_CorrectedReflectance_Bands367",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Aqua_CorrectedReflectance_TrueColor",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Aqua_Data_No_Data",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Aqua_SurfaceReflectance_Bands721",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "500m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Combined_Value_Added_AOD",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Fires_All",
+                    "serviceUrl": "https://map2.vis.earthdata.nasa.gov/wms/wms.php",
+                    "serviceTypeId": "WMS_1_1_1",
+                    "parameters": [
+                        {
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Terra_Aerosol",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Terra_CorrectedReflectance_Bands367",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Terra_CorrectedReflectance_Bands721",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Terra_CorrectedReflectance_TrueColor",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Terra_Data_No_Data",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "MODIS_Terra_SurfaceReflectance_Bands721",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "500m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "OMI_SO2_Lower_Troposphere",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "OMI_SO2_Middle_Troposphere",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "OMI_SO2_Upper_Troposphere_and_Stratosphere",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "2km",
+                            "FORMAT": "image/png"
+                        }
+                    ]
+                },
+                {
+                    "name": "VIIRS_SNPP_CorrectedReflectance_BandsM11-I2-I1",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "VIIRS_SNPP_CorrectedReflectance_BandsM3-I3-M11",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "VIIRS_SNPP_CorrectedReflectance_TrueColor",
+                    "serviceUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi",
+                    "serviceTypeId": "WMTS_1_0_0",
+                    "parameters": [
+                        {
+                            "TILEMATRIXSET": "250m",
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "VIIRS_SNPP_Fires_375m_Day",
+                    "serviceUrl": "https://map2.vis.earthdata.nasa.gov/wms/wms.php",
+                    "serviceTypeId": "WMS_1_1_1",
+                    "parameters": [
+                        {
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                },
+                {
+                    "name": "VIIRS_SNPP_Fires_375m_Night",
+                    "serviceUrl": "https://map2.vis.earthdata.nasa.gov/wms/wms.php",
+                    "serviceTypeId": "WMS_1_1_1",
+                    "parameters": [
+                        {
+                            "FORMAT": "image/jpeg"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
