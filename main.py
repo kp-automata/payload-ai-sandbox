@@ -1,14 +1,14 @@
 """
-- fetch data
-- preprocess
+- use vgg foundational model for now
+- fine tune with cross referenced eonet wildfire events and copernicus api
+- general satellite imagery also available from copernicus api
 
+- preprocess
 - train
 - validation
 - test
-
 - export parameters
 
-https://eonet.gsfc.nasa.gov/api/v3/layers/wildfires
 """
 
 # import tensorflow as tf
