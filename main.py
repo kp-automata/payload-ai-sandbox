@@ -10,25 +10,20 @@
 - export parameters
 
 """
-
-import tensorflow as tf
-# import cv2 as cv
+import cv2
 import os
 import requests
 import json
-# import pandas
-import onnxruntime as backend
-
+import onnxruntime
 import numpy as np
 import onnx
 import os
 import glob
 
+from onnx import numpy_helper as nh
 
-def onnx_vgg_model_test():
-    model = onnx.load('vgg16/vgg16.onnx')
+def onnx_vgg_min_model_test():
     test_data_dir = 'vgg16/test_data_set_0'
-
     # Load inputs
     inputs = []
     inputs_num = len(glob.glob(os.path.join(test_data_dir, 'input_*.pb')))
@@ -37,7 +32,7 @@ def onnx_vgg_model_test():
         tensor = onnx.TensorProto()
         with open(input_file, 'rb') as f:
             tensor.ParseFromString(f.read())
-        inputs.append(numpy_helper.to_array(tensor))
+        inputs.append(nh.to_array(tensor))
 
     # Load reference outputs
     ref_outputs = []
@@ -47,16 +42,57 @@ def onnx_vgg_model_test():
         tensor = onnx.TensorProto()
         with open(output_file, 'rb') as f:
             tensor.ParseFromString(f.read())
-        ref_outputs.append(numpy_helper.to_array(tensor))
+        ref_outputs.append(nh.to_array(tensor))
 
-    # Run the model on the backend
-    outputs = list(tf.run_model(model, inputs))
+    session = onnxruntime.InferenceSession('vgg16/vgg16.onnx')
+    outputs = session.run(None, {'data': inputs[0]})
+    print(outputs)
 
-    # Compare the results with reference outputs.
+    # # Compare the results with reference outputs.
     for ref_o, o in zip(ref_outputs, outputs):
         np.testing.assert_almost_equal(ref_o, o)
 
-def retrieve():
+def test_basic_image():
+    # TODO
+    # Load image
+    image = preprocess_image('data/your_image.jpg')
+    # Run inference
+    session = onnxruntime.InferenceSession('vgg16/vgg16.onnx')
+    outputs = session.run(None, {'data': image})
+    # Get top predictions
+    top_predictions = get_top_k_predictions(outputs)
+    print(top_predictions)
+
+
+def preprocess_image(image_path, target_size=(224, 224)):
+    # Read image
+    img = cv2.imread(image_path)
+    # Resize
+    img = cv2.resize(img, target_size)
+    # Convert BGR to RGB (if needed)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # Normalize (0-1 range)
+    img = img.astype('float32') / 255.0
+    # Mean subtraction (ImageNet standard)
+    img -= [0.485, 0.456, 0.406]
+    img /= [0.229, 0.224, 0.225]
+    # Add batch dimension
+    img = np.expand_dims(img, axis=0)
+    return img
+
+def get_top_k_predictions(outputs, k=5):
+    # Load ImageNet classes
+    # TODO
+    with open('imagenet_classes.txt', 'r') as f:
+        classes = [line.strip() for line in f.readlines()]
+    # Get predictions
+    predictions = outputs[0]
+    top_k_indices = predictions.argsort()[-k:][::-1]
+    # Get top k classes and probabilities
+    return [(classes[idx], predictions[idx]) for idx in top_k_indices]
+
+
+def retrieve_cross_reference():
     # Code used to gather cross referencing data
     wildfire_url = "https://eonet.gsfc.nasa.gov/api/v3/categories/wildfires"
     response = requests.get(url=wildfire_url)
@@ -107,5 +143,5 @@ def retrieve():
         })
 
 if __name__ == "__main__":
-    onnx_vgg_model_test()
+    # onnx_vgg_model_test()
     # retrieve()
