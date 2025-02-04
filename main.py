@@ -57,14 +57,14 @@ def onnx_vgg_model_test():
         np.testing.assert_almost_equal(ref_o, o)
 
 def retrieve():
-    # Code used to gather cross referencing data 
+    # Code used to gather cross referencing data
     wildfire_url = "https://eonet.gsfc.nasa.gov/api/v3/categories/wildfires"
-     response = requests.get(url=wildfire_url)
-     data = response.json()
-     with open('categories.json', 'w', encoding='utf-8') as f:
+    response = requests.get(url=wildfire_url)
+    data = response.json()
+    with open('categories.json', 'w', encoding='utf-8') as f:
          json.dump(data, f, ensure_ascii=False, indent=4)
-    
-    # Example code how to query copernicus sentiel 2 data and do explcit image processing evals 
+
+    # Example code how to query copernicus sentiel 2 data and do explcit image processing evals
     ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
     satellite = requests.post('https://sh.dataspace.copernicus.eu/api/v1/process',
     headers={f"Authorization" : "Bearer {ACCESS_TOKEN}"},
