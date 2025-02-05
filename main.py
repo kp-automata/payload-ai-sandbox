@@ -19,8 +19,33 @@ import numpy as np
 import onnx
 import os
 import glob
+import tensorflow as tf
 
 from onnx import numpy_helper as nh
+
+def create_image_net_model_predictions(model_type):
+    for image in os.listdir("data"):
+        print(image)
+        loaded = tf.keras.preprocessing.image.load_img(f"data/{image}", target_size=(224, 224))
+        preprocessed = np.expand_dims(tf.keras.preprocessing.image.img_to_array(loaded), axis=0)
+
+        if model_type == "vgg":
+            to_predict = tf.keras.applications.vgg16.preprocess_input(preprocessed)
+            model = tf.keras.applications.vgg16.VGG16(weights='imagenet', include_top=True)
+
+        elif model_type == "resnet":
+            to_predict = tf.keras.applications.resnet50.preprocess_input(preprocessed)
+            model = tf.keras.applications.resnet50.ResNet50(weights='imagenet', include_top=True)
+
+        predictions = model.predict(to_predict)
+
+        if model_type == "vgg":
+            print('Keras Predicted:', tf.keras.applications.vgg16.decode_predictions(predictions, top=3)[0])
+
+        elif model_type == "resnet":
+            print('Keras Predicted:', tf.keras.applications.resnet50.decode_predictions(predictions, top=3)[0])
+
+        model.export(os.path.join("export/", model.name))
 
 def onnx_vgg_min_model_test():
     test_data_dir = 'vgg16/test_data_set_0'
@@ -52,6 +77,7 @@ def onnx_vgg_min_model_test():
     for ref_o, o in zip(ref_outputs, outputs):
         np.testing.assert_almost_equal(ref_o, o)
 
+
 def test_basic_image():
     # TODO
     # Load image
@@ -82,7 +108,6 @@ def preprocess_image(image_path, target_size=(224, 224)):
 
 def get_top_k_predictions(outputs, k=5):
     # Load ImageNet classes
-    # TODO
     with open('imagenet_classes.txt', 'r') as f:
         classes = [line.strip() for line in f.readlines()]
     # Get predictions
@@ -143,5 +168,6 @@ def retrieve_cross_reference():
         })
 
 if __name__ == "__main__":
+    create_image_net_model_predictions("resnet")
     # onnx_vgg_model_test()
     # retrieve()
