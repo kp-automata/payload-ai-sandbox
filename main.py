@@ -23,6 +23,9 @@ import glob
 import tensorflow as tf
 import argparse
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from onnx import numpy_helper as nh
@@ -121,65 +124,47 @@ def get_top_k_predictions(outputs, k=5):
     # Get top k classes and probabilities
     return [(classes[idx], predictions[idx]) for idx in top_k_indices]
 
-def batch_data_download(url):
-    # Precreated download folder
+def batch_data_downloader_selenium(url, max_pages=9):
+    # TODO figure out how to go past 100
+    # either pagination or rate limit
+    # might need to retrieve next page element
     destination = "data/flickr"
-    try:
-        # Store your own user agent data in an env variable for privacy.
-        user_agent = os.getenv("USER_AGENT")
-        headers = {'User-Agent': f'{user_agent}'}
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
-        img_tags = soup.find_all('img')
+    driver = webdriver.Chrome()  # Make sure you have chromedriver installed
+    driver.get(url)
 
-        batch_size = 20
-        download_count = 0
-        for img in img_tags:
-            img_src = img.get('src') or img.get('data-src')
+    downloaded = 0
+    last_height = driver.execute_script("return document.body.scrollHeight")
 
-            if img_src:
-                # Handle relative URLs
-                if not img_src.startswith(('http://', 'https://')):
-                    img_src = urljoin(url, img_src)
+    while True:
+        # Scroll down
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)  # Wait for images to load
 
-                # Generate a filename
-                filename = os.path.join(destination, f'image_{download_count}.jpg')
+        # Get all image elements
+        images = driver.find_elements(By.TAG_NAME, 'img')
 
+        # Download new images
+        for img in images[downloaded:]:
+            src = img.get_attribute('src')
+            if src and src.startswith('http'):
                 try:
-                    if download_count % batch_size != 0 or download_count == 0:
-                        # Download the image
-                        img_response = requests.get(img_src, headers=headers)
-                        img_response.raise_for_status()
+                    response = requests.get(src)
+                    filepath = os.path.join(destination, f'image_{downloaded}.jpg')
+                    with open(filepath, 'wb') as f:
+                        f.write(response.content)
+                    print(f"Downloaded: {filepath}")
+                    downloaded += 1
+                except Exception as e:
+                    print(f"Error: {e}")
 
-                        # Save the image
-                        with open(filename, 'wb') as f:
-                            f.write(img_response.content)
+        # Check if we've reached the bottom
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
+    driver.quit()
+    return downloaded
 
-                        download_count += 1
-                        print(f"Downloaded: {filename}")
-                    else:
-                        print("Sleeping for a minute to avoid rate limiting.")
-                        time.sleep(60)
-                        # Download the image
-                        img_response = requests.get(img_src, headers=headers)
-                        img_response.raise_for_status()
-
-                        # Save the image
-                        with open(filename, 'wb') as f:
-                            f.write(img_response.content)
-
-                        download_count += 1
-                        print(f"Downloaded: {filename}")
-
-                except Exception as img_error:
-                    print(f"Error downloading image {img_src}: {img_error}")
-
-        return download_count
-
-    except Exception as e:
-        print(f"Error accessing Flickr URL: {e}")
-        return 0
 
 def retrieve_cross_reference():
     # Code used to gather cross referencing data
@@ -244,7 +229,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.batch_download:
-        batch_data_download(url=args.batch_download)
+        batch_data_downloader_selenium(url=args.batch_download)
     elif args.model_type:
         create_image_net_model_predictions(args.model_type)
     else:
