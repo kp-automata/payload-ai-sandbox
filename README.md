@@ -12,12 +12,13 @@ Sandbox R&amp;D space for payload AI image processing task
 - VGG (Very Deep Convolutional Network for Large-Scale Image Recognition)
 - (Check [onnx](https://github.com/onnx/models))
 
-#### Potential Data
+#### Data Sources
 - [Copernicus API](https://documentation.dataspace.copernicus.eu/Data.html)
 - [Sentiel Hub](https://docs.sentinel-hub.com/api/latest/)
 - [IBM Nasa Foundational Model](https://huggingface.co/ibm-nasa-geospatial)
 - [Google Earth Engine Set](https://developers.google.com/earth-engine/datasets/catalog)
-- [Earth Observatory Natural Event Tracker]()
+- [CSA recommend: Fire Information for Resource Management System (FIRMS) | Earthdata (nasa.gov)
+Monitoring Fires with Fast-Acting Data | NASA Applied Sciences](https://www.flickr.com/photos/esa_events/albums/72157716491073681/with/52064824660/)
 
 #### Camera
 - Full frame size (pixels)	2048x1944

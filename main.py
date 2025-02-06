@@ -20,7 +20,10 @@ import onnx
 import os
 import glob
 import tensorflow as tf
+import argparse
 
+from urllib.parse import urljoin
+from bs4 import BeautifulSoup
 from onnx import numpy_helper as nh
 
 def create_image_net_model_predictions(model_type):
@@ -77,9 +80,8 @@ def onnx_vgg_min_model_test():
     for ref_o, o in zip(ref_outputs, outputs):
         np.testing.assert_almost_equal(ref_o, o)
 
-
 def test_basic_image():
-    # TODO
+    # TODO: implement for custom ops
     # Load image
     image = preprocess_image('data/your_image.jpg')
     # Run inference
@@ -88,7 +90,6 @@ def test_basic_image():
     # Get top predictions
     top_predictions = get_top_k_predictions(outputs)
     print(top_predictions)
-
 
 def preprocess_image(image_path, target_size=(224, 224)):
     # Read image
@@ -116,6 +117,52 @@ def get_top_k_predictions(outputs, k=5):
     # Get top k classes and probabilities
     return [(classes[idx], predictions[idx]) for idx in top_k_indices]
 
+def batch_data_download(url):
+    # Precreated download folder
+    destination = "data/flickr"
+    try:
+        # Store your own user agent data in an env variable for privacy.
+        user_agent = os.getenv("USER_AGENT")
+        headers = {'User-Agent': f'{user_agent}'}
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        img_tags = soup.find_all('img')
+
+        MAX_COUNT = 50
+        download_count = 0
+        for img in img_tags:
+            img_src = img.get('src') or img.get('data-src')
+
+            if img_src:
+                # Handle relative URLs
+                if not img_src.startswith(('http://', 'https://')):
+                    img_src = urljoin(url, img_src)
+
+                # Generate a filename
+                filename = os.path.join(destination, f'image_{download_count}.jpg')
+
+                try:
+                    if download_count <= MAX_COUNT:
+                        # Download the image
+                        img_response = requests.get(img_src, headers=headers)
+                        img_response.raise_for_status()
+
+                        # Save the image
+                        with open(filename, 'wb') as f:
+                            f.write(img_response.content)
+
+                        download_count += 1
+                        print(f"Downloaded: {filename}")
+
+                except Exception as img_error:
+                    print(f"Error downloading image {img_src}: {img_error}")
+
+        return download_count
+
+    except Exception as e:
+        print(f"Error accessing Flickr URL: {e}")
+        return 0
 
 def retrieve_cross_reference():
     # Code used to gather cross referencing data
@@ -168,6 +215,17 @@ def retrieve_cross_reference():
         })
 
 if __name__ == "__main__":
-    create_image_net_model_predictions("resnet")
-    # onnx_vgg_model_test()
-    # retrieve()
+    parser  = argparse.ArgumentParser(
+        prog='R&D Sandbox',
+        description='Remote sensing mission utils for image classficiation and data retrieval'
+        )
+
+    # VGG16 and ResNet50 supported for now
+    model_type = parser.add_argument('-m', '--model-type', action='store_true', type=str)
+    if model_type:
+        create_image_net_model_predictions(model_type)
+
+    # Given a flickr url, download the images using beautiful soup
+    batch = parser.add_argument('-b', '--batch-download', action='store_true', type=str)
+    if batch:
+        batch_data_download(url=batch)
