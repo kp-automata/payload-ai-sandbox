@@ -161,6 +161,16 @@ def batch_data_download(url):
                     else:
                         print("Sleeping for a minute to avoid rate limiting.")
                         time.sleep(60)
+                        # Download the image
+                        img_response = requests.get(img_src, headers=headers)
+                        img_response.raise_for_status()
+
+                        # Save the image
+                        with open(filename, 'wb') as f:
+                            f.write(img_response.content)
+
+                        download_count += 1
+                        print(f"Downloaded: {filename}")
 
                 except Exception as img_error:
                     print(f"Error downloading image {img_src}: {img_error}")
