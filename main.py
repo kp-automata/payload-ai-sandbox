@@ -40,6 +40,9 @@ def create_image_net_model_predictions(model_type):
             to_predict = tf.keras.applications.resnet50.preprocess_input(preprocessed)
             model = tf.keras.applications.resnet50.ResNet50(weights='imagenet', include_top=True)
 
+        else:
+            return
+
         predictions = model.predict(to_predict)
 
         if model_type == "vgg":
@@ -220,12 +223,16 @@ if __name__ == "__main__":
         description='Remote sensing mission utils for image classficiation and data retrieval'
         )
 
-    # VGG16 and ResNet50 supported for now
-    model_type = parser.add_argument('-m', '--model-type', action='store_true', type=str)
-    if model_type:
-        create_image_net_model_predictions(model_type)
-
     # Given a flickr url, download the images using beautiful soup
-    batch = parser.add_argument('-b', '--batch-download', action='store_true', type=str)
-    if batch:
-        batch_data_download(url=batch)
+    parser.add_argument('-b', '--batch-download', action='store', required=False, type=str)
+    # VGG16 and ResNet50 supported for now
+    parser.add_argument('-m', '--model-type', action='store', required=False, type=str)
+
+    args = parser.parse_args()
+    if args.batch_download:
+        batch_data_download(url=args.batch_download)
+    elif args.model_type:
+        create_image_net_model_predictions(args.model_type)
+    else:
+        print("No args sent to CLI")
+
