@@ -12,6 +12,7 @@
 """
 import cv2
 import os
+import time
 import requests
 import json
 import onnxruntime
@@ -132,7 +133,7 @@ def batch_data_download(url):
         soup = BeautifulSoup(response.text, 'html.parser')
         img_tags = soup.find_all('img')
 
-        MAX_COUNT = 50
+        batch_size = 20
         download_count = 0
         for img in img_tags:
             img_src = img.get('src') or img.get('data-src')
@@ -146,7 +147,7 @@ def batch_data_download(url):
                 filename = os.path.join(destination, f'image_{download_count}.jpg')
 
                 try:
-                    if download_count <= MAX_COUNT:
+                    if download_count % batch_size != 0 or download_count == 0:
                         # Download the image
                         img_response = requests.get(img_src, headers=headers)
                         img_response.raise_for_status()
@@ -157,6 +158,9 @@ def batch_data_download(url):
 
                         download_count += 1
                         print(f"Downloaded: {filename}")
+                    else:
+                        print("Sleeping for a minute to avoid rate limiting.")
+                        time.sleep(60)
 
                 except Exception as img_error:
                     print(f"Error downloading image {img_src}: {img_error}")
