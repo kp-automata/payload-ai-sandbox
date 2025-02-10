@@ -18,3 +18,4 @@ use a cheaper camera / just infared sensor
 - (piCAM/FM)[https://www.skyfoxlabs.com/product/27-picam]
 - (Specifications C3D CubeSat Camera)[https://www.xcam.co.uk/c3d-cubesat-camera]
 - (AstroPi Setup)[https://astro-pi.org/about/the-computers]
+- (FPGA Raspberry PI Interfacing)[https://www.hackster.io/SaadTiwana/embedded-diaries-hacking-rpi-camera-for-use-with-zynq-fpga-3214a0#overview]
